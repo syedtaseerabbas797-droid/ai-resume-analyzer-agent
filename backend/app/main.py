@@ -37,6 +37,9 @@ app = FastAPI(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
+        # ── Production ──────────────────────────────────────────────────
+        "https://jobscout-ai-agent.vercel.app",
+        # ── Local development ────────────────────────────────────────────
         "http://localhost:3000",
         "http://127.0.0.1:3000",
         "http://localhost:5173",
