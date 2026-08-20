@@ -1,11 +1,10 @@
 import * as React from "react";
+import { useAuth } from "./AuthContext";
 
-const CANDIDATE_KEY = "jobscout.candidate_id";
 const RUN_KEY = "jobscout.last_run_id";
 
 interface CandidateContextValue {
   candidateId: string | null;
-  setCandidateId: (id: string | null) => void;
   lastRunId: string | null;
   setLastRunId: (id: string | null) => void;
 }
@@ -34,20 +33,14 @@ function writeLocal(key: string, value: string | null) {
 }
 
 export function CandidateProvider({ children }: { children: React.ReactNode }) {
-  const [candidateId, setCandidateIdState] = React.useState<string | null>(
-    null,
-  );
+  const { user } = useAuth();
+  const candidateId = user?.candidate_id || null;
+
   const [lastRunId, setLastRunIdState] = React.useState<string | null>(null);
 
   // Hydrate from localStorage on mount (client only).
   React.useEffect(() => {
-    setCandidateIdState(readLocal(CANDIDATE_KEY));
     setLastRunIdState(readLocal(RUN_KEY));
-  }, []);
-
-  const setCandidateId = React.useCallback((id: string | null) => {
-    setCandidateIdState(id);
-    writeLocal(CANDIDATE_KEY, id);
   }, []);
 
   const setLastRunId = React.useCallback((id: string | null) => {
@@ -56,8 +49,8 @@ export function CandidateProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const value = React.useMemo(
-    () => ({ candidateId, setCandidateId, lastRunId, setLastRunId }),
-    [candidateId, lastRunId, setCandidateId, setLastRunId],
+    () => ({ candidateId, lastRunId, setLastRunId }),
+    [candidateId, lastRunId, setLastRunId],
   );
 
   return (

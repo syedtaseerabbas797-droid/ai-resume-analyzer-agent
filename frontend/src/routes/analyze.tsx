@@ -13,7 +13,6 @@ import {
 import { toast } from "sonner";
 
 import { PageHeader } from "@/components/common/PageHeader";
-import { CandidateIdBanner } from "@/components/common/CandidateIdBanner";
 import { ScoreRing } from "@/components/common/ScoreRing";
 import { SkillBadge } from "@/components/common/SkillBadge";
 import { AnalysisSkeleton } from "@/components/common/LoadingSkeleton";
@@ -94,7 +93,6 @@ function AnalyzePage() {
         }
       />
 
-      <CandidateIdBanner />
 
       {mutation.isPending ? <AnalysisSkeleton /> : null}
 

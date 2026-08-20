@@ -5,7 +5,6 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { PageHeader } from "@/components/common/PageHeader";
-import { CandidateIdBanner } from "@/components/common/CandidateIdBanner";
 import { UploadDropzone } from "@/components/upload/UploadDropzone";
 import { Button } from "@/components/ui/button";
 import { useCandidateGuard } from "@/hooks/useCandidateGuard";
@@ -60,7 +59,6 @@ function UploadPage() {
         description="We accept PDF and DOCX. Your file is sent securely to your FastAPI backend."
       />
 
-      <CandidateIdBanner />
 
       <div className="js-fade-up rounded-2xl border border-border bg-card p-6 shadow-sm">
         <UploadDropzone

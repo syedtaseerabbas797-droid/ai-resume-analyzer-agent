@@ -4,7 +4,6 @@ import { Bot, Loader2, Rocket, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 import { PageHeader } from "@/components/common/PageHeader";
-import { CandidateIdBanner } from "@/components/common/CandidateIdBanner";
 import { Button } from "@/components/ui/button";
 import { useCandidateGuard } from "@/hooks/useCandidateGuard";
 import { useCandidate } from "@/context/CandidateContext";
@@ -63,7 +62,7 @@ function AgentLaunchPage() {
         description="The autonomous agent will generate search queries, find jobs, extract details, and score them against your resume."
       />
 
-      <CandidateIdBanner />
+
 
       <div className="js-fade-up rounded-2xl border border-border bg-gradient-to-br from-card via-card to-primary-soft/40 p-8 shadow-sm">
         <div className="flex flex-col items-center text-center">

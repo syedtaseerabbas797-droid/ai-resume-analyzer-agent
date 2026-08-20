@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/context/AuthContext";
-import { useCandidate } from "@/context/CandidateContext";
 import { ApiError, signup } from "@/lib/api";
 
 export const Route = createFileRoute("/signup")({
@@ -59,7 +58,6 @@ function PasswordStrength({ password }: { password: string }) {
 
 function SignupPage() {
   const { setAuth, isAuthenticated } = useAuth();
-  const { setCandidateId } = useCandidate();
   const navigate = useNavigate();
 
   const [fullName, setFullName] = React.useState("");
@@ -82,18 +80,10 @@ function SignupPage() {
         full_name: fullName.trim() || undefined,
       }),
     onSuccess: (data) => {
-      setAuth(data.access_token, {
-        id: data.user_id,
-        email: data.email,
-        full_name: data.full_name,
-        candidate_id: data.candidate_id,
-        is_active: true,
-      });
-      setCandidateId(data.candidate_id);
       toast.success("Account created!", {
-        description: "Your resume profile is ready. Let's upload your CV.",
+        description: "Please log in with your new credentials.",
       });
-      navigate({ to: "/upload" });
+      navigate({ to: "/login" });
     },
     onError: (err: unknown) => {
       const msg =

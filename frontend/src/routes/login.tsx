@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/context/AuthContext";
-import { useCandidate } from "@/context/CandidateContext";
 import { ApiError, login } from "@/lib/api";
 
 export const Route = createFileRoute("/login")({
@@ -26,7 +25,6 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
   const { setAuth, isAuthenticated } = useAuth();
-  const { setCandidateId } = useCandidate();
   const navigate = useNavigate();
 
   const [email, setEmail] = React.useState("");
@@ -35,7 +33,7 @@ function LoginPage() {
 
   // If already logged in, send to the app
   React.useEffect(() => {
-    if (isAuthenticated) navigate({ to: "/setup" });
+    if (isAuthenticated) navigate({ to: "/upload" });
   }, [isAuthenticated, navigate]);
 
   const mutation = useMutation({
@@ -48,11 +46,10 @@ function LoginPage() {
         candidate_id: data.candidate_id,
         is_active: true,
       });
-      setCandidateId(data.candidate_id);
       toast.success("Welcome back!", {
         description: data.full_name ? `Hi, ${data.full_name}` : data.email,
       });
-      navigate({ to: "/setup" });
+      navigate({ to: "/upload" });
     },
     onError: (err: unknown) => {
       const msg =

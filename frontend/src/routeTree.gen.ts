@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UploadRouteImport } from './routes/upload'
 import { Route as SignupRouteImport } from './routes/signup'
-import { Route as SetupRouteImport } from './routes/setup'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AnalyzeRouteImport } from './routes/analyze'
 import { Route as AgentRouteImport } from './routes/agent'
@@ -30,11 +29,6 @@ const UploadRoute = UploadRouteImport.update({
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SetupRoute = SetupRouteImport.update({
-  id: '/setup',
-  path: '/setup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -88,7 +82,6 @@ export interface FileRoutesByFullPath {
   '/agent': typeof AgentRouteWithChildren
   '/analyze': typeof AnalyzeRoute
   '/login': typeof LoginRoute
-  '/setup': typeof SetupRoute
   '/signup': typeof SignupRoute
   '/upload': typeof UploadRoute
   '/dashboard/$candidateId': typeof DashboardCandidateIdRoute
@@ -101,7 +94,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analyze': typeof AnalyzeRoute
   '/login': typeof LoginRoute
-  '/setup': typeof SetupRoute
   '/signup': typeof SignupRoute
   '/upload': typeof UploadRoute
   '/dashboard/$candidateId': typeof DashboardCandidateIdRoute
@@ -116,7 +108,6 @@ export interface FileRoutesById {
   '/agent': typeof AgentRouteWithChildren
   '/analyze': typeof AnalyzeRoute
   '/login': typeof LoginRoute
-  '/setup': typeof SetupRoute
   '/signup': typeof SignupRoute
   '/upload': typeof UploadRoute
   '/dashboard/$candidateId': typeof DashboardCandidateIdRoute
@@ -132,7 +123,6 @@ export interface FileRouteTypes {
     | '/agent'
     | '/analyze'
     | '/login'
-    | '/setup'
     | '/signup'
     | '/upload'
     | '/dashboard/$candidateId'
@@ -145,7 +135,6 @@ export interface FileRouteTypes {
     | '/'
     | '/analyze'
     | '/login'
-    | '/setup'
     | '/signup'
     | '/upload'
     | '/dashboard/$candidateId'
@@ -159,7 +148,6 @@ export interface FileRouteTypes {
     | '/agent'
     | '/analyze'
     | '/login'
-    | '/setup'
     | '/signup'
     | '/upload'
     | '/dashboard/$candidateId'
@@ -174,7 +162,6 @@ export interface RootRouteChildren {
   AgentRoute: typeof AgentRouteWithChildren
   AnalyzeRoute: typeof AnalyzeRoute
   LoginRoute: typeof LoginRoute
-  SetupRoute: typeof SetupRoute
   SignupRoute: typeof SignupRoute
   UploadRoute: typeof UploadRoute
   DashboardCandidateIdRoute: typeof DashboardCandidateIdRoute
@@ -195,13 +182,6 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/setup': {
-      id: '/setup'
-      path: '/setup'
-      fullPath: '/setup'
-      preLoaderRoute: typeof SetupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -289,7 +269,6 @@ const rootRouteChildren: RootRouteChildren = {
   AgentRoute: AgentRouteWithChildren,
   AnalyzeRoute: AnalyzeRoute,
   LoginRoute: LoginRoute,
-  SetupRoute: SetupRoute,
   SignupRoute: SignupRoute,
   UploadRoute: UploadRoute,
   DashboardCandidateIdRoute: DashboardCandidateIdRoute,

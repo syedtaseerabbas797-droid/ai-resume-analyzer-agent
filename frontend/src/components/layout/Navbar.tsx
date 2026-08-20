@@ -15,12 +15,11 @@ import {
 import { Button } from "@/components/ui/button";
 
 const navItems: ReadonlyArray<{
-  to: "/" | "/setup" | "/upload" | "/analyze" | "/agent";
+  to: "/" | "/upload" | "/analyze" | "/agent";
   label: string;
   exact?: boolean;
 }> = [
   { to: "/", label: "Home", exact: true },
-  { to: "/setup", label: "Setup" },
   { to: "/upload", label: "Upload" },
   { to: "/analyze", label: "Analyze" },
   { to: "/agent", label: "Agent" },

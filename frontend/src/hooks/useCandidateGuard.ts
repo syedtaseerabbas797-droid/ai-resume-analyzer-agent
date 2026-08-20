@@ -1,27 +1,13 @@
-import * as React from "react";
-import { useNavigate } from "@tanstack/react-router";
-import { toast } from "sonner";
-import { useCandidate } from "@/context/CandidateContext";
+import { useAuthGuard } from "./useAuthGuard";
+import { useAuth } from "@/context/AuthContext";
 
 /**
- * Redirects to /setup if no candidate_id is present after hydration.
- * Returns the current candidateId (may be null on the first render).
+ * Ensures the user is authenticated and returns their candidateId.
  */
 export function useCandidateGuard(): string | null {
-  const { candidateId } = useCandidate();
-  const navigate = useNavigate();
-  const [hydrated, setHydrated] = React.useState(false);
+  const isAuthenticated = useAuthGuard();
+  const { user } = useAuth();
 
-  React.useEffect(() => {
-    setHydrated(true);
-  }, []);
-
-  React.useEffect(() => {
-    if (hydrated && !candidateId) {
-      toast.error("No candidate ID set. Please set one up first.");
-      navigate({ to: "/setup" });
-    }
-  }, [hydrated, candidateId, navigate]);
-
-  return candidateId;
+  if (!isAuthenticated || !user) return null;
+  return user.candidate_id;
 }
