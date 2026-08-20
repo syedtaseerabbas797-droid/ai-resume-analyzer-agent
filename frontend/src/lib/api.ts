@@ -22,7 +22,7 @@ import type {
 // Vite statically replaces import.meta.env.VITE_* at build time.
 // Set VITE_API_BASE_URL in Vercel → Environment Variables for production.
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+  import.meta.env.VITE_API_BASE_URL || "https://jobscout-ai-agent.fastapicloud.dev";
 
 export class ApiError extends Error {
   status: number;
