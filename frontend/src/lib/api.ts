@@ -20,7 +20,7 @@ import type {
 } from "@/types/api";
 
 // Vite statically replaces import.meta.env.VITE_* at build time.
-// Set VITE_API_BASE_URL in Vercel → Environment Variables for production.
+// Set VITE_API_BASE_URL in Cloudflare Workers → Settings → Variables for production.
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "https://jobscout-ai-agent.fastapicloud.dev";
 

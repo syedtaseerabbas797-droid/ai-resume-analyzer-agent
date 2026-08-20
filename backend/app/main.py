@@ -33,12 +33,12 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# CORS middleware for localhost frontend origins
+# CORS — production Cloudflare Workers origin + local dev origins
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        # ── Production ──────────────────────────────────────────────────
-        "https://jobscout-ai-agent.vercel.app",
+        # ── Production (Cloudflare Workers) ─────────────────────────────
+        "https://jobscout-ai-agent.hassanlodhi482.workers.dev",
         # ── Local development ────────────────────────────────────────────
         "http://localhost:3000",
         "http://127.0.0.1:3000",

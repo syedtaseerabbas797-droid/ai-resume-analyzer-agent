@@ -1,11 +1,4 @@
 {
-  "framework": null,
-  "buildCommand": "npm run build",
-  "outputDirectory": ".vercel/output",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "_comment": "This file is NOT used. The frontend is deployed on Cloudflare Workers via wrangler.jsonc. This file is kept only as a reference stub."
 }
