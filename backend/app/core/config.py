@@ -12,7 +12,7 @@ ENV_FILE = BASE_DIR / ".env"
 class Settings(BaseSettings):
     DATABASE_URL: str = Field(..., min_length=1)
     GROQ_API_KEY: Optional[str] = None
-    GROQ_MODEL: str = "llama-3.1-8b-instant"
+    GROQ_MODEL: str = "openai/gpt-oss-20b"
     GROQ_TIMEOUT_SECONDS: float = 30.0
     GROQ_MAX_RESUME_CHARS: int = 12000
     TAVILY_API_KEY: Optional[str] = None

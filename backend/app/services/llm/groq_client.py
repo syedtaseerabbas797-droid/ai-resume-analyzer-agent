@@ -49,7 +49,7 @@ class GroqChatClient:
     ):
         raw_key = api_key or settings.GROQ_API_KEY or ""
         self.api_key = raw_key.strip()
-        raw_model = model or settings.GROQ_MODEL or "llama-3.1-8b-instant"
+        raw_model = model or settings.GROQ_MODEL or "openai/gpt-oss-20b"
         self.model = raw_model.strip()
         self.timeout_seconds = timeout_seconds or settings.GROQ_TIMEOUT_SECONDS
 
