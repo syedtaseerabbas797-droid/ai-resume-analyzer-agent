@@ -77,7 +77,7 @@ class GroqChatClient:
                 "type": "json_schema",
                 "json_schema": {
                     "name": schema_name,
-                    "strict": True,
+                    "strict": False,
                     "schema": json_schema,
                 },
             }

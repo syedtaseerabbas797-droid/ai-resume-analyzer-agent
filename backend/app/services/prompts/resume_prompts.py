@@ -15,17 +15,7 @@ RESUME_ANALYSIS_SCHEMA = {
         "hiring_recommendation": {"type": "string"},
         "improvement_suggestions": {"type": "array", "items": {"type": "string"}},
     },
-    "required": [
-        "ats_score",
-        "technical_skills",
-        "soft_skills",
-        "strengths",
-        "weaknesses",
-        "experience_summary",
-        "recommended_job_roles",
-        "hiring_recommendation",
-        "improvement_suggestions",
-    ],
+    "required": [],
 }
 
 

@@ -52,14 +52,14 @@ class ResumeListResponse(BaseModel):
 class ResumeAnalysisData(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    ats_score: int = Field(ge=0, le=100)
+    ats_score: Optional[int] = Field(default=None, ge=0, le=100)
     technical_skills: List[str] = Field(default_factory=list)
     soft_skills: List[str] = Field(default_factory=list)
     strengths: List[str] = Field(default_factory=list)
     weaknesses: List[str] = Field(default_factory=list)
     recommended_job_roles: List[str] = Field(default_factory=list)
-    experience_summary: str
-    hiring_recommendation: str
+    experience_summary: Optional[str] = None
+    hiring_recommendation: Optional[str] = None
     improvement_suggestions: List[str] = Field(default_factory=list)
     analysis_provider: Optional[str] = None
     analysis_model: Optional[str] = None
