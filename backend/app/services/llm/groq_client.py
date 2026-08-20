@@ -47,8 +47,10 @@ class GroqChatClient:
         model: str | None = None,
         timeout_seconds: float | None = None,
     ):
-        self.api_key = api_key or settings.GROQ_API_KEY
-        self.model = model or settings.GROQ_MODEL
+        raw_key = api_key or settings.GROQ_API_KEY or ""
+        self.api_key = raw_key.strip()
+        raw_model = model or settings.GROQ_MODEL or "llama-3.1-8b-instant"
+        self.model = raw_model.strip()
         self.timeout_seconds = timeout_seconds or settings.GROQ_TIMEOUT_SECONDS
 
     def create_json_completion(
@@ -102,9 +104,9 @@ class GroqChatClient:
         if response.status_code == 429:
             raise GroqRateLimitError("Groq rate limit was reached.")
         if response.status_code >= 500:
-            raise GroqClientError("Groq service returned a server error.")
+            raise GroqClientError(f"Groq service returned a server error: {response.text}")
         if response.status_code >= 400:
-            raise GroqClientError("Groq request was rejected.")
+            raise GroqClientError(f"Groq request was rejected: {response.text}")
 
         try:
             data = response.json()
