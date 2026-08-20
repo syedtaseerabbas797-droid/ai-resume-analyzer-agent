@@ -1,3 +1,15 @@
+import sys
+import os
+
+# ---------------------------------------------------------------------------
+# Production path fix — ensures the 'backend/' directory (parent of 'app/')
+# is always on sys.path so that `from app.xxx import ...` resolves correctly
+# regardless of the working directory used by uvicorn/gunicorn in production.
+# ---------------------------------------------------------------------------
+_backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _backend_dir not in sys.path:
+    sys.path.insert(0, _backend_dir)
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.database import create_db_and_tables
