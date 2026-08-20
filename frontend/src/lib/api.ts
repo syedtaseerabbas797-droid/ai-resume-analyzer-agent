@@ -19,11 +19,10 @@ import type {
   UserProfile,
 } from "@/types/api";
 
+// Vite statically replaces import.meta.env.VITE_* at build time.
+// Set VITE_API_BASE_URL in Vercel → Environment Variables for production.
 const API_BASE_URL =
-  (typeof import.meta !== "undefined" &&
-    (import.meta as ImportMeta & { env?: Record<string, string> }).env
-      ?.VITE_API_BASE_URL) ||
-  "http://127.0.0.1:8000";
+  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
 
 export class ApiError extends Error {
   status: number;
