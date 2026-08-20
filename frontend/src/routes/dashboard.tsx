@@ -3,7 +3,6 @@ import {
   createFileRoute,
   Link,
   useNavigate,
-  useParams,
 } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, Bot, Briefcase } from "lucide-react";
@@ -19,7 +18,9 @@ import { ApiError, getDashboardJobs } from "@/lib/api";
 import { useCandidate } from "@/context/CandidateContext";
 import type { DashboardJobsResponse } from "@/types/api";
 
-export const Route = createFileRoute("/dashboard/$candidateId")({
+import { useCandidateGuard } from "@/hooks/useCandidateGuard";
+
+export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
       { title: "Ranked Jobs — JobScout AI" },
@@ -33,15 +34,10 @@ export const Route = createFileRoute("/dashboard/$candidateId")({
 });
 
 function DashboardPage() {
-  const { candidateId } = useParams({ from: "/dashboard/$candidateId" });
-  const { setCandidateId, lastRunId } = useCandidate();
+  const candidateId = useCandidateGuard();
+  const { lastRunId } = useCandidate();
   const navigate = useNavigate();
   const [page, setPage] = React.useState(1);
-
-  // Sync url candidate into context.
-  React.useEffect(() => {
-    if (candidateId) setCandidateId(candidateId);
-  }, [candidateId, setCandidateId]);
 
   const query = useQuery<DashboardJobsResponse, ApiError>({
     queryKey: ["dashboard-jobs", candidateId, page],
@@ -50,9 +46,7 @@ function DashboardPage() {
     refetchOnWindowFocus: false,
   });
 
-  React.useEffect(() => {
-    if (!candidateId) navigate({ to: "/setup" });
-  }, [candidateId, navigate]);
+
 
   if (!candidateId) return null;
 

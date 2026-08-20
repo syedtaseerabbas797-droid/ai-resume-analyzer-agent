@@ -143,12 +143,7 @@ function AgentProgressPage() {
               <Button
                 size="lg"
                 className="js-hover-lift"
-                onClick={() =>
-                  navigate({
-                    to: "/dashboard/$candidateId",
-                    params: { candidateId: targetCandidate },
-                  })
-                }
+                onClick={() => navigate({ to: "/dashboard" })}
               >
                 View Results <ArrowRight className="h-4 w-4" />
               </Button>

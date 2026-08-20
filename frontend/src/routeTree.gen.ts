@@ -12,12 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UploadRouteImport } from './routes/upload'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AnalyzeRouteImport } from './routes/analyze'
 import { Route as AgentRouteImport } from './routes/agent'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgentIndexRouteImport } from './routes/agent.index'
 import { Route as JobJobIdRouteImport } from './routes/job.$jobId'
-import { Route as DashboardCandidateIdRouteImport } from './routes/dashboard.$candidateId'
 import { Route as AgentProgressRunIdRouteImport } from './routes/agent.progress.$runId'
 import { Route as AgentDetailRunIdRouteImport } from './routes/agent.detail.$runId'
 
@@ -34,6 +34,11 @@ const SignupRoute = SignupRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnalyzeRoute = AnalyzeRouteImport.update({
@@ -61,11 +66,6 @@ const JobJobIdRoute = JobJobIdRouteImport.update({
   path: '/job/$jobId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardCandidateIdRoute = DashboardCandidateIdRouteImport.update({
-  id: '/dashboard/$candidateId',
-  path: '/dashboard/$candidateId',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AgentProgressRunIdRoute = AgentProgressRunIdRouteImport.update({
   id: '/progress/$runId',
   path: '/progress/$runId',
@@ -81,10 +81,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agent': typeof AgentRouteWithChildren
   '/analyze': typeof AnalyzeRoute
+  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/upload': typeof UploadRoute
-  '/dashboard/$candidateId': typeof DashboardCandidateIdRoute
   '/job/$jobId': typeof JobJobIdRoute
   '/agent/': typeof AgentIndexRoute
   '/agent/detail/$runId': typeof AgentDetailRunIdRoute
@@ -93,10 +93,10 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analyze': typeof AnalyzeRoute
+  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/upload': typeof UploadRoute
-  '/dashboard/$candidateId': typeof DashboardCandidateIdRoute
   '/job/$jobId': typeof JobJobIdRoute
   '/agent': typeof AgentIndexRoute
   '/agent/detail/$runId': typeof AgentDetailRunIdRoute
@@ -107,10 +107,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/agent': typeof AgentRouteWithChildren
   '/analyze': typeof AnalyzeRoute
+  '/dashboard': typeof DashboardRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
   '/upload': typeof UploadRoute
-  '/dashboard/$candidateId': typeof DashboardCandidateIdRoute
   '/job/$jobId': typeof JobJobIdRoute
   '/agent/': typeof AgentIndexRoute
   '/agent/detail/$runId': typeof AgentDetailRunIdRoute
@@ -122,10 +122,10 @@ export interface FileRouteTypes {
     | '/'
     | '/agent'
     | '/analyze'
+    | '/dashboard'
     | '/login'
     | '/signup'
     | '/upload'
-    | '/dashboard/$candidateId'
     | '/job/$jobId'
     | '/agent/'
     | '/agent/detail/$runId'
@@ -134,10 +134,10 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/analyze'
+    | '/dashboard'
     | '/login'
     | '/signup'
     | '/upload'
-    | '/dashboard/$candidateId'
     | '/job/$jobId'
     | '/agent'
     | '/agent/detail/$runId'
@@ -147,10 +147,10 @@ export interface FileRouteTypes {
     | '/'
     | '/agent'
     | '/analyze'
+    | '/dashboard'
     | '/login'
     | '/signup'
     | '/upload'
-    | '/dashboard/$candidateId'
     | '/job/$jobId'
     | '/agent/'
     | '/agent/detail/$runId'
@@ -161,10 +161,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgentRoute: typeof AgentRouteWithChildren
   AnalyzeRoute: typeof AnalyzeRoute
+  DashboardRoute: typeof DashboardRoute
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
   UploadRoute: typeof UploadRoute
-  DashboardCandidateIdRoute: typeof DashboardCandidateIdRoute
   JobJobIdRoute: typeof JobJobIdRoute
 }
 
@@ -189,6 +189,13 @@ declare module '@tanstack/react-router' {
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/analyze': {
@@ -226,13 +233,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JobJobIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/$candidateId': {
-      id: '/dashboard/$candidateId'
-      path: '/dashboard/$candidateId'
-      fullPath: '/dashboard/$candidateId'
-      preLoaderRoute: typeof DashboardCandidateIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/agent/progress/$runId': {
       id: '/agent/progress/$runId'
       path: '/progress/$runId'
@@ -268,10 +268,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgentRoute: AgentRouteWithChildren,
   AnalyzeRoute: AnalyzeRoute,
+  DashboardRoute: DashboardRoute,
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
   UploadRoute: UploadRoute,
-  DashboardCandidateIdRoute: DashboardCandidateIdRoute,
   JobJobIdRoute: JobJobIdRoute,
 }
 export const routeTree = rootRouteImport
