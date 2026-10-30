@@ -44,7 +44,7 @@ export function UploadDropzone({
           handleFiles(e.dataTransfer.files);
         }}
         className={cn(
-          "flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed bg-card p-10 text-center transition-all",
+          "flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed bg-card px-4 py-10 text-center transition-all sm:p-10",
           dragOver
             ? "border-primary bg-primary-soft/60 shadow-[0_0_0_6px_var(--primary-soft)]"
             : "border-border hover:border-primary/40 hover:bg-secondary/40",
@@ -57,8 +57,8 @@ export function UploadDropzone({
           <p className="text-sm font-semibold text-foreground">
             Drag and drop your resume here
           </p>
-          <p className="text-xs text-muted-foreground">
-            or click to browse — PDF or DOCX, up to ~10MB
+          <p className="mt-1 text-xs text-muted-foreground">
+            or tap to browse — PDF or DOCX, up to ~10MB
           </p>
         </div>
         <input
@@ -71,7 +71,7 @@ export function UploadDropzone({
       </label>
 
       {file ? (
-        <div className="flex items-center justify-between gap-3 rounded-2xl border border-border bg-card p-4">
+        <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-4 xs:flex-row xs:items-center xs:justify-between">
           <div className="flex min-w-0 items-center gap-3">
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary-soft text-primary">
               <FileText className="h-4 w-4" />
@@ -85,7 +85,7 @@ export function UploadDropzone({
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 xs:shrink-0">
             <Button
               variant="ghost"
               size="icon"
@@ -95,7 +95,7 @@ export function UploadDropzone({
             >
               <X className="h-4 w-4" />
             </Button>
-            <Button onClick={onUpload} disabled={isUploading} className="js-hover-lift">
+            <Button onClick={onUpload} disabled={isUploading} className="js-hover-lift flex-1 xs:flex-none">
               {isUploading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" /> Uploading…
@@ -107,6 +107,7 @@ export function UploadDropzone({
           </div>
         </div>
       ) : null}
+
 
       {isUploading ? (
         <div className="js-fade-in space-y-1.5" aria-live="polite">

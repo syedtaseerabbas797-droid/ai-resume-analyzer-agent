@@ -35,18 +35,15 @@ function AgentDetailPage() {
   const data = query.data;
 
   return (
-    <div className="mx-auto max-w-5xl space-y-8 px-4 py-10 md:px-8 md:py-14">
+    <div className="mx-auto max-w-5xl space-y-6 px-4 py-8 sm:space-y-8 sm:py-10 md:px-8 md:py-14">
       <PageHeader
         eyebrow="Agent run"
         title="Run Details"
         description="Full breakdown of the agent's execution, queries, and match summary."
         actions={
           data?.candidate_id ? (
-            <Button asChild className="js-hover-lift">
-              <Link
-                to="/dashboard/$candidateId"
-                params={{ candidateId: data.candidate_id }}
-              >
+            <Button asChild className="js-hover-lift w-full sm:w-auto">
+              <Link to="/dashboard">
                 View Jobs <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
@@ -120,7 +117,7 @@ function AgentDetailBody({ data }: { data: AgentRunDetail }) {
 
       <SummaryGrid summary={data.summary} />
 
-      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <div className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-6">
         <h3 className="mb-4 text-sm font-semibold text-foreground">Workflow steps</h3>
         <StepTimeline steps={data.steps ?? []} />
       </div>

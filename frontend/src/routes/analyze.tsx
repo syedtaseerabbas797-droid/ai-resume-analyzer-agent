@@ -58,14 +58,14 @@ function AnalyzePage() {
   });
 
   return (
-    <div className="mx-auto max-w-5xl space-y-8 px-4 py-10 md:px-8 md:py-14">
+    <div className="mx-auto max-w-5xl space-y-6 px-4 py-8 sm:space-y-8 sm:py-10 md:px-8 md:py-14">
       <PageHeader
         eyebrow="Step 3"
         title="Resume Analysis"
         description="The AI evaluates your resume — ATS score, skills, strengths, and improvement areas."
         actions={
-          <>
-            <label className="inline-flex cursor-pointer select-none items-center gap-2 rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium text-muted-foreground">
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+            <label className="inline-flex cursor-pointer select-none items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-xs font-medium text-muted-foreground sm:py-1.5">
               <input
                 type="checkbox"
                 checked={force}
@@ -77,7 +77,7 @@ function AnalyzePage() {
             <Button
               onClick={() => mutation.mutate()}
               disabled={mutation.isPending}
-              className="js-hover-lift"
+              className="js-hover-lift w-full sm:w-auto"
             >
               {mutation.isPending ? (
                 <>
@@ -89,7 +89,7 @@ function AnalyzePage() {
                 </>
               )}
             </Button>
-          </>
+          </div>
         }
       />
 
@@ -129,18 +129,18 @@ function AnalysisView({ analysis }: { analysis: ResumeAnalysis }) {
   return (
     <div className="js-fade-up space-y-6">
       {/* Score + provider */}
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-        <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-3">
+        <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6">
           <ScoreRing score={analysis.ats_score} label="ATS Score" />
         </div>
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm md:col-span-2">
+        <div className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6 md:col-span-2">
           <h3 className="text-sm font-semibold text-foreground">
             Experience summary
           </h3>
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
             {safe(analysis.experience_summary, "No summary provided.")}
           </p>
-          <div className="mt-4 grid grid-cols-2 gap-3 text-xs">
+          <div className="mt-4 grid grid-cols-1 gap-2 text-xs sm:grid-cols-2">
             <Meta label="Hiring recommendation" value={analysis.hiring_recommendation} />
             <Meta label="Status" value={analysis.status} />
             <Meta label="Provider" value={analysis.analysis_provider} />
@@ -159,7 +159,7 @@ function AnalysisView({ analysis }: { analysis: ResumeAnalysis }) {
       </SectionCard>
 
       {/* Strengths / Weaknesses */}
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:gap-5 sm:grid-cols-2">
         <ListCard
           title="Strengths"
           icon={<CheckCircle2 className="h-4 w-4 text-success" />}
@@ -216,8 +216,8 @@ function AnalysisView({ analysis }: { analysis: ResumeAnalysis }) {
         )}
       </SectionCard>
 
-      <div className="flex justify-end">
-        <Button asChild size="lg" className="js-hover-lift">
+      <div className="flex justify-center sm:justify-end">
+        <Button asChild size="lg" className="js-hover-lift w-full sm:w-auto">
           <Link to="/agent">
             Run Agent <ArrowRight className="h-4 w-4" />
           </Link>

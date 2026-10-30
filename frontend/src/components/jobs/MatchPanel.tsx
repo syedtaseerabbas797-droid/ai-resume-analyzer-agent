@@ -9,10 +9,10 @@ import { cn } from "@/lib/utils";
 export function MatchPanel({ match }: { match: JobMatch }) {
   const tier = getScoreInfo(match.overall_score);
   return (
-    <div className="space-y-6 rounded-2xl border border-border bg-card p-6 shadow-sm">
-      <div className="flex flex-col items-start gap-6 md:flex-row md:items-center">
+    <div className="space-y-6 rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-6">
+      <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-center">
         <ScoreRing score={match.overall_score} label="Overall" />
-        <div className="flex-1 space-y-3">
+        <div className="w-full flex-1 space-y-3">
           <div className="flex flex-wrap items-center gap-2">
             <span
               className={cn(

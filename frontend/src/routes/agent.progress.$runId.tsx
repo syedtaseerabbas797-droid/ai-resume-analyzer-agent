@@ -55,7 +55,7 @@ function AgentProgressPage() {
   const targetCandidate = data?.candidate_id || candidateId;
 
   return (
-    <div className="mx-auto max-w-4xl space-y-8 px-4 py-10 md:px-8 md:py-14">
+    <div className="mx-auto max-w-4xl space-y-5 px-4 py-8 sm:space-y-8 sm:py-10 md:px-8 md:py-14">
       <PageHeader
         eyebrow="Live"
         title="Agent Progress"
@@ -97,7 +97,7 @@ function AgentProgressPage() {
 
       {data ? (
         <>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <Stat label="Started" value={formatDateTime(data.started_at)} />
             <Stat label="Completed" value={formatDateTime(data.completed_at)} />
             <Stat label="Total steps" value={String(data.steps?.length ?? 0)} />
@@ -127,7 +127,7 @@ function AgentProgressPage() {
             )
           ) : null}
 
-          <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+          <div className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-6">
             <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold text-foreground">
               <FileSearch className="h-4 w-4 text-primary" />
               Workflow
@@ -142,7 +142,7 @@ function AgentProgressPage() {
             <div className="flex justify-end">
               <Button
                 size="lg"
-                className="js-hover-lift"
+                className="js-hover-lift w-full sm:w-auto"
                 onClick={() => navigate({ to: "/dashboard" })}
               >
                 View Results <ArrowRight className="h-4 w-4" />

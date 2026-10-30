@@ -21,8 +21,9 @@ import type {
 
 // Vite statically replaces import.meta.env.VITE_* at build time.
 // Set VITE_API_BASE_URL in Cloudflare Workers → Settings → Variables for production.
-const API_BASE_URL =
+const RAW_API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "https://jobscout-ai-agent.fastapicloud.dev";
+const API_BASE_URL = RAW_API_BASE_URL.replace(/\/+$/, "");
 
 export class ApiError extends Error {
   status: number;
@@ -160,6 +161,8 @@ export const uploadResumeWithProgress = (
     const xhr = new XMLHttpRequest();
     xhr.open("POST", `${API_BASE_URL}/resume/upload`);
     xhr.setRequestHeader("Accept", "application/json");
+    const token = getStoredToken();
+    if (token) xhr.setRequestHeader("Authorization", `Bearer ${token}`);
     // Do NOT set Content-Type — browser sets multipart boundary.
 
     xhr.upload.onprogress = (e) => {

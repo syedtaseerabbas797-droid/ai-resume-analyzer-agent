@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     JWT_SECRET_KEY: str = Field(..., min_length=32)
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 10080  # 7 days
+    CORS_ORIGINS: Optional[str] = None
 
     model_config = SettingsConfigDict(
         env_file=ENV_FILE,

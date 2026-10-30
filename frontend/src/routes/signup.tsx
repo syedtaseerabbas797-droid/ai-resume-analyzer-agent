@@ -110,25 +110,25 @@ function SignupPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 py-12">
+    <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center bg-background px-4 py-6 sm:py-12">
       <div className="js-scale-in w-full max-w-md">
         {/* Logo + heading */}
-        <div className="mb-8 flex flex-col items-center gap-3 text-center">
-          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-primary to-agentic shadow-lg">
-            <Bot className="h-7 w-7 text-white" />
+        <div className="mb-6 flex flex-col items-center gap-2.5 text-center sm:mb-8 sm:gap-3">
+          <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-primary to-agentic shadow-lg sm:h-14 sm:w-14">
+            <Bot className="h-6 w-6 text-white sm:h-7 sm:w-7" />
           </span>
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+            <h1 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
               Create your account
             </h1>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
               Start your AI-powered career search in seconds.
             </p>
           </div>
         </div>
 
         {/* Feature chips */}
-        <div className="mb-6 flex flex-wrap justify-center gap-2">
+        <div className="mb-5 flex flex-wrap justify-center gap-1.5 sm:mb-6 sm:gap-2">
           {[
             "ATS Resume Analysis",
             "Autonomous Job Search",
@@ -136,7 +136,7 @@ function SignupPage() {
           ].map((f) => (
             <span
               key={f}
-              className="rounded-full border border-border bg-secondary px-3 py-1 text-xs font-medium text-muted-foreground"
+              className="rounded-full border border-border bg-secondary px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground sm:px-3 sm:py-1 sm:text-xs"
             >
               {f}
             </span>
@@ -144,7 +144,7 @@ function SignupPage() {
         </div>
 
         {/* Form card */}
-        <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
+        <div className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-8">
           <form onSubmit={handleSubmit} noValidate className="space-y-5">
             {/* Full name */}
             <div className="space-y-2">

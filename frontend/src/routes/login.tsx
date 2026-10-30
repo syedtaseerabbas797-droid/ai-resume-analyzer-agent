@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMutation } from "@tanstack/react-query";
-import { Bot, Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
+import { Bot, Eye, EyeOff, Loader2, Lock, Mail, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -68,26 +68,26 @@ function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-background px-4 py-12">
+    <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center bg-background px-4 py-6 sm:py-12">
       {/* Card */}
       <div className="js-scale-in w-full max-w-md">
         {/* Logo */}
-        <div className="mb-8 flex flex-col items-center gap-3 text-center">
-          <span className="grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-primary to-agentic shadow-lg">
-            <Bot className="h-7 w-7 text-white" />
+        <div className="mb-6 flex flex-col items-center gap-2.5 text-center sm:mb-8 sm:gap-3">
+          <span className="grid h-12 w-12 place-items-center rounded-2xl bg-gradient-to-br from-primary to-agentic shadow-lg sm:h-14 sm:w-14">
+            <Bot className="h-6 w-6 text-white sm:h-7 sm:w-7" />
           </span>
           <div>
-            <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+            <h1 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
               Welcome back
             </h1>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
               Log in to continue your AI-powered job search.
             </p>
           </div>
         </div>
 
         {/* Form card */}
-        <div className="rounded-2xl border border-border bg-card p-8 shadow-sm">
+        <div className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-8">
           <form onSubmit={handleSubmit} noValidate className="space-y-5">
             {/* Email */}
             <div className="space-y-2">
@@ -149,6 +149,23 @@ function LoginPage() {
                   : "Login failed. Please try again."}
               </div>
             )}
+
+            {/* Quick Demo Fill button */}
+            <button
+              type="button"
+              onClick={() => {
+                setEmail("demo@jobscout.ai");
+                setPassword("Demo12345!");
+                toast.info("Demo credentials filled!", {
+                  description: "Click 'Sign in' to explore with preloaded candidate data.",
+                });
+              }}
+              className="flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-primary/40 bg-primary-soft/50 py-2.5 text-xs font-medium text-primary transition-colors hover:bg-primary-soft"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-agentic" />
+              <span>Fill Demo Credentials</span>
+              <span className="font-mono text-[11px] opacity-75">(1-click review)</span>
+            </button>
 
             {/* Submit */}
             <Button

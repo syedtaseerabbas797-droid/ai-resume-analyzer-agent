@@ -39,7 +39,7 @@ function JobDetailPage() {
   });
 
   return (
-    <div className="mx-auto max-w-5xl space-y-8 px-4 py-10 md:px-8 md:py-14">
+    <div className="mx-auto max-w-5xl space-y-6 px-4 py-8 sm:space-y-8 sm:py-10 md:px-8 md:py-14">
       <div>
         <Button asChild variant="ghost" size="sm" className="mb-3 -ml-2">
           <Link to="/agent">
@@ -77,9 +77,9 @@ function JobDetailPage() {
 function JobView({ job }: { job: JobDetail }) {
   return (
     <div className="js-fade-up space-y-6">
-      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div className="space-y-2">
+      <div className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div className="min-w-0 space-y-2">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-1">
                 <Briefcase className="h-3.5 w-3.5" />
@@ -104,14 +104,14 @@ function JobView({ job }: { job: JobDetail }) {
             href={job.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="js-hover-lift inline-flex items-center gap-1.5 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90"
+            className="js-hover-lift inline-flex w-full items-center justify-center gap-1.5 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-sm hover:bg-primary/90 sm:w-auto sm:py-2"
           >
             Apply now <ExternalLink className="h-3.5 w-3.5" />
           </a>
         </div>
       </div>
 
-      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <div className="rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-6">
         <h3 className="text-sm font-semibold text-foreground">Description</h3>
         {job.full_description ? (
           <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-foreground">

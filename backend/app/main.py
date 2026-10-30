@@ -12,6 +12,7 @@ if _backend_dir not in sys.path:
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.core.config import settings
 from app.core.database import create_db_and_tables
 from app.api.routes_health import router as health_router
 from app.api.routes_db import router as db_router
@@ -33,20 +34,27 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# CORS — production Cloudflare Workers origin + local dev origins
+# CORS configuration supporting Cloudflare Workers, Vercel, Netlify, Render, and custom domains
+allowed_origins = [
+    "https://jobscout-ai-agent.hassanlodhi482.workers.dev",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+]
+
+if settings.CORS_ORIGINS:
+    for origin in settings.CORS_ORIGINS.split(","):
+        trimmed = origin.strip()
+        if trimmed and trimmed not in allowed_origins:
+            allowed_origins.append(trimmed)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        # ── Production (Cloudflare Workers) ─────────────────────────────
-        "https://jobscout-ai-agent.hassanlodhi482.workers.dev",
-        # ── Local development ────────────────────────────────────────────
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:8080",
-        "http://127.0.0.1:8080",
-    ],
+    allow_origins=allowed_origins,
+    allow_origin_regex=r"^https://.*(\.workers\.dev|\.vercel\.app|\.pages\.dev|\.netlify\.app|\.onrender\.com)$",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

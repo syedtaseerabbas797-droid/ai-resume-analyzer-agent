@@ -55,7 +55,7 @@ function AgentLaunchPage() {
   });
 
   return (
-    <div className="mx-auto max-w-3xl space-y-8 px-4 py-10 md:px-8 md:py-14">
+    <div className="mx-auto max-w-3xl space-y-6 px-4 py-8 sm:space-y-8 sm:py-10 md:px-8 md:py-14">
       <PageHeader
         eyebrow="Step 4"
         title="Launch JobScout Agent"
@@ -64,7 +64,7 @@ function AgentLaunchPage() {
 
 
 
-      <div className="js-fade-up rounded-2xl border border-border bg-gradient-to-br from-card via-card to-primary-soft/40 p-8 shadow-sm">
+      <div className="js-fade-up rounded-2xl border border-border bg-gradient-to-br from-card via-card to-primary-soft/40 p-5 shadow-sm sm:p-8">
         <div className="flex flex-col items-center text-center">
           <span className="grid h-16 w-16 place-items-center rounded-2xl bg-gradient-to-br from-primary via-agentic to-ai text-primary-foreground shadow-lg">
             <Bot className="h-7 w-7" />
@@ -91,7 +91,7 @@ function AgentLaunchPage() {
 
           <Button
             size="lg"
-            className="js-hover-lift mt-8"
+            className="js-hover-lift mt-8 w-full sm:w-auto"
             disabled={mutation.isPending || !candidateId}
             onClick={() => mutation.mutate()}
           >

@@ -30,36 +30,36 @@ function Landing() {
     <div>
       {/* Hero */}
       <section className="js-hero-gradient relative overflow-hidden border-b border-border">
-        <div className="mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-28">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:py-20 md:px-8 md:py-28">
           <div className="js-fade-up mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/80 px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm backdrop-blur">
               <Sparkles className="h-3.5 w-3.5 text-agentic" />
               Autonomous AI career agent
             </span>
-            <h1 className="mt-6 text-4xl font-semibold tracking-tight text-foreground md:text-6xl">
+            <h1 className="mt-5 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl lg:text-6xl">
               Your AI-Powered{" "}
               <span className="bg-gradient-to-r from-primary via-agentic to-ai bg-clip-text text-transparent">
                 Career Agent
               </span>
             </h1>
-            <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground md:text-lg">
+            <p className="mx-auto mt-4 max-w-xl text-sm text-muted-foreground sm:mt-5 sm:text-base md:text-lg">
               Upload your resume, let the AI agent search jobs across the web,
               and get ranked matches scored against your skills and experience.
             </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Button asChild size="lg" className="js-hover-lift">
-                <Link to="/setup">
+            <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+              <Button asChild size="lg" className="js-hover-lift w-full sm:w-auto">
+                <Link to="/signup">
                   Get Started <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg">
+              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
                 <Link to="/upload">Upload resume</Link>
               </Button>
             </div>
           </div>
 
-          {/* 3-step visual flow */}
-          <div className="js-fade-up mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-4 md:grid-cols-3">
+          {/* 3-step cards */}
+          <div className="js-fade-up mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4 md:mt-16">
             {[
               {
                 icon: Upload,
@@ -82,7 +82,7 @@ function Landing() {
             ].map((s, i) => (
               <div
                 key={s.title}
-                className="js-hover-lift relative rounded-2xl border border-border bg-card p-6 shadow-sm"
+                className="js-hover-lift relative rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6"
               >
                 <div className="flex items-center gap-3">
                   <span
@@ -100,7 +100,7 @@ function Landing() {
                     Step {i + 1}
                   </span>
                 </div>
-                <h3 className="mt-4 text-base font-semibold text-foreground">
+                <h3 className="mt-3 text-base font-semibold text-foreground">
                   {s.title}
                 </h3>
                 <p className="mt-1 text-sm text-muted-foreground">{s.desc}</p>
@@ -111,21 +111,21 @@ function Landing() {
       </section>
 
       {/* Feature cards */}
-      <section className="mx-auto max-w-7xl px-4 py-20 md:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-14 sm:py-20 md:px-8">
         <div className="js-fade-up max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
             What's inside
           </p>
-          <h2 className="mt-2 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl md:text-4xl">
             Built like a senior career strategist.
           </h2>
-          <p className="mt-3 text-muted-foreground">
+          <p className="mt-3 text-sm text-muted-foreground sm:text-base">
             Three focused capabilities working together — resume intelligence,
             autonomous search, and recruiter-grade matching.
           </p>
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 sm:gap-5">
           {[
             {
               icon: FileText,
@@ -148,7 +148,7 @@ function Landing() {
           ].map((f) => (
             <div
               key={f.title}
-              className="js-hover-lift rounded-2xl border border-border bg-card p-6 shadow-sm"
+              className="js-hover-lift rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6"
             >
               <span
                 className={
@@ -161,7 +161,7 @@ function Landing() {
               >
                 <f.icon className="h-5 w-5" />
               </span>
-              <h3 className="mt-4 text-lg font-semibold text-foreground">
+              <h3 className="mt-4 text-base font-semibold text-foreground sm:text-lg">
                 {f.title}
               </h3>
               <p className="mt-2 text-sm text-muted-foreground">{f.desc}</p>
@@ -169,9 +169,9 @@ function Landing() {
           ))}
         </div>
 
-        <div className="mt-14 flex justify-center">
-          <Button asChild size="lg" className="js-hover-lift">
-            <Link to="/setup">
+        <div className="mt-12 flex justify-center">
+          <Button asChild size="lg" className="js-hover-lift w-full sm:w-auto">
+            <Link to="/signup">
               Launch JobScout <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>

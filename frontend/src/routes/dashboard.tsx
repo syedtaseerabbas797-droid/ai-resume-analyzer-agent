@@ -41,12 +41,10 @@ function DashboardPage() {
 
   const query = useQuery<DashboardJobsResponse, ApiError>({
     queryKey: ["dashboard-jobs", candidateId, page],
-    queryFn: () => getDashboardJobs(candidateId, page, 10),
+    queryFn: () => getDashboardJobs(candidateId!, page, 10),
     enabled: !!candidateId,
     refetchOnWindowFocus: false,
   });
-
-
 
   if (!candidateId) return null;
 
@@ -55,7 +53,7 @@ function DashboardPage() {
   const scoredOnPage = jobs.filter((j) => j.match !== null).length;
 
   return (
-    <div className="mx-auto max-w-7xl space-y-8 px-4 py-10 md:px-8 md:py-14">
+    <div className="mx-auto max-w-7xl space-y-6 px-4 py-8 sm:space-y-8 sm:py-10 md:px-8 md:py-14">
       <PageHeader
         eyebrow="Dashboard"
         title="Ranked Job Matches"
@@ -71,6 +69,7 @@ function DashboardPage() {
         }
       />
 
+      {/* Summary stats — 1 col on mobile, 3 on sm+ */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <SummaryStat
           label="Total jobs"
@@ -94,7 +93,8 @@ function DashboardPage() {
       </div>
 
       {query.isLoading ? (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+        /* 1 col mobile → 2 col tablet → 3 col desktop */
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
             <JobCardSkeleton key={i} />
           ))}
@@ -125,7 +125,7 @@ function DashboardPage() {
 
       {data && jobs.length > 0 ? (
         <>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {jobs.map((job) => (
               <JobCard key={job.job_id} job={job} />
             ))}
@@ -153,14 +153,14 @@ function SummaryStat({
 }) {
   return (
     <div className="js-fade-up flex items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-sm">
-      <span className="grid h-10 w-10 place-items-center rounded-xl bg-secondary">
+      <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-xl bg-secondary">
         {icon}
       </span>
-      <div>
+      <div className="min-w-0">
         <p className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
           {label}
         </p>
-        <p className="text-lg font-semibold text-foreground">{value}</p>
+        <p className="truncate text-lg font-semibold text-foreground">{value}</p>
       </div>
     </div>
   );
