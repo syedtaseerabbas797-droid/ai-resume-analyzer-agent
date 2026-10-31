@@ -22,7 +22,7 @@ import type {
 // Vite statically replaces import.meta.env.VITE_* at build time.
 // Set VITE_API_BASE_URL in Cloudflare Workers → Settings → Variables for production.
 const RAW_API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://jobscout-ai-agent.fastapicloud.dev";
+  import.meta.env.VITE_API_BASE_URL || "https://ai-resume-analyzer-agent.fastapicloud.dev";
 const API_BASE_URL = RAW_API_BASE_URL.replace(/\/+$/, "");
 
 export class ApiError extends Error {
