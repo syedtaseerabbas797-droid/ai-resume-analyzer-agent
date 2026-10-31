@@ -40,6 +40,8 @@ frontend/dist/
 frontend/.wrangler/
 frontend/.tanstack/
 frontend/.lovable/
+.vercel/
+.output/
 
 # IDE & OS
 .vscode/
