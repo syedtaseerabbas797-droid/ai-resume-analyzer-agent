@@ -221,7 +221,7 @@ Be honest and calibrated. Output ONLY valid JSON matching the schema."""
                     json_schema=_MATCH_JSON_SCHEMA,
                     schema_name="job_match_result",
                     temperature=0.2,
-                    max_completion_tokens=1600,
+                    max_completion_tokens=4096,
                 )
                 return out, attempt + 1
             except GroqRateLimitError as exc:

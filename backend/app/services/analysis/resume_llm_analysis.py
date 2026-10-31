@@ -51,6 +51,7 @@ def analyze_resume_with_llm(resume_text: str) -> ResumeAnalysisData:
             messages=messages,
             json_schema=RESUME_ANALYSIS_SCHEMA,
             schema_name="jobscout_resume_analysis",
+            max_completion_tokens=4096,
         )
         payload = parse_resume_analysis_json(completion.content)
         analysis = ResumeAnalysisData.model_validate(payload)

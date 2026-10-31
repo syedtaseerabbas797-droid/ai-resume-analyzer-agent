@@ -58,7 +58,7 @@ class GroqChatClient:
         messages: list[dict[str, str]],
         json_schema: dict[str, Any],
         schema_name: str,
-        max_completion_tokens: int = 1400,
+        max_completion_tokens: int = 4096,
         temperature: float = 0.1,
     ) -> GroqCompletionResult:
         if not self.api_key:
