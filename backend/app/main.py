@@ -60,6 +60,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def root():
+    return {
+        "service": "JobScout AI Backend",
+        "status": "online",
+        "health": "/health",
+        "docs": "/docs",
+    }
+
 app.include_router(health_router, tags=["Health"])
 app.include_router(db_router, tags=["Database"])
 app.include_router(auth_router, prefix="/auth", tags=["Authentication"])
