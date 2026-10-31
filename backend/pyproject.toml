@@ -5,3 +5,4 @@ description = "FastAPI backend for AI Resume Analyzer & Job Search Agent"
 
 [tool.fastapi]
 entrypoint = "main:app"
+
