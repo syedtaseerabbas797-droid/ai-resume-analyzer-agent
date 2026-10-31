@@ -100,16 +100,16 @@ export function Navbar() {
           <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
             {isAuthenticated && user ? (
               <>
-                {/* User name chip — hidden on very small screens */}
-                <div className="hidden items-center gap-1.5 sm:flex">
-                  <span className="grid h-6 w-6 place-items-center rounded-full bg-primary-soft text-primary">
+                {/* User name chip — visible on mobile and desktop */}
+                <div className="flex items-center gap-1.5">
+                  <span className="grid h-6 w-6 place-items-center rounded-full bg-primary-soft text-primary sm:h-7 sm:w-7">
                     <UserCircle className="h-4 w-4" />
                   </span>
-                  <span className="max-w-[100px] truncate text-sm font-medium text-foreground lg:max-w-[160px]">
+                  <span className="max-w-[85px] truncate text-xs font-medium text-foreground xs:max-w-[120px] sm:max-w-[160px] sm:text-sm">
                     {user.full_name ?? user.email.split("@")[0]}
                   </span>
                 </div>
-                {/* Logout — hidden on mobile (shown in drawer) */}
+                {/* Logout — desktop button */}
                 <Button
                   variant="outline"
                   size="sm"
@@ -122,14 +122,23 @@ export function Navbar() {
               </>
             ) : (
               <>
+                {/* Log in link — visible on both mobile and desktop */}
                 <Link
                   to="/login"
-                  className="hidden rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground sm:inline-block"
+                  className="rounded-md px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground sm:px-3 sm:py-1.5 sm:text-sm"
                 >
                   Log in
                 </Link>
-                <Button asChild size="sm" className="hidden sm:flex">
-                  <Link to="/signup">Sign up free</Link>
+                {/* Sign up button — compact on mobile, expanded on desktop */}
+                <Button
+                  asChild
+                  size="sm"
+                  className="h-8 px-2.5 text-xs font-medium sm:h-9 sm:px-3 sm:text-sm"
+                >
+                  <Link to="/signup">
+                    <span className="xs:hidden">Sign up</span>
+                    <span className="hidden xs:inline">Sign up free</span>
+                  </Link>
                 </Button>
               </>
             )}
@@ -137,7 +146,7 @@ export function Navbar() {
             {/* Hamburger button — visible on mobile/tablet */}
             <button
               onClick={() => setOpen(true)}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-border bg-card text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground md:hidden"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border bg-card text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground sm:h-9 sm:w-9 md:hidden"
               aria-label="Open navigation menu"
             >
               <Menu className="h-4 w-4" />
