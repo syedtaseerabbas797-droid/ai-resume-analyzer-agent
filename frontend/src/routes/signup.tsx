@@ -75,7 +75,7 @@ function SignupPage() {
   const mutation = useMutation({
     mutationFn: () =>
       signup({
-        email: email.trim(),
+        email: email.trim().toLowerCase(),
         password,
         full_name: fullName.trim() || undefined,
       }),
@@ -83,12 +83,30 @@ function SignupPage() {
       toast.success("Account created!", {
         description: "Please log in with your new credentials.",
       });
-      navigate({ to: "/login" });
+      navigate({ to: "/login", search: { email: email.trim().toLowerCase() } });
     },
     onError: (err: unknown) => {
-      const msg =
-        err instanceof ApiError ? err.message : "Sign up failed. Please try again.";
-      toast.error("Sign up failed", { description: msg });
+      const isDuplicate =
+        err instanceof ApiError &&
+        (err.status === 409 || err.message.toLowerCase().includes("already exists"));
+
+      if (isDuplicate) {
+        toast.warning("Account already exists", {
+          description: "This email is already registered. Please sign in instead.",
+          action: {
+            label: "Sign in",
+            onClick: () =>
+              navigate({
+                to: "/login",
+                search: { email: email.trim().toLowerCase() },
+              }),
+          },
+        });
+      } else {
+        const msg =
+          err instanceof ApiError ? err.message : "Sign up failed. Please try again.";
+        toast.error("Sign up failed", { description: msg });
+      }
     },
   });
 
@@ -258,11 +276,33 @@ function SignupPage() {
 
             {/* API error */}
             {mutation.isError && (
-              <div className="js-fade-in rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
-                {mutation.error instanceof ApiError
-                  ? mutation.error.message
-                  : "Sign up failed. Please try again."}
-              </div>
+              mutation.error instanceof ApiError &&
+              (mutation.error.status === 409 ||
+                mutation.error.message.toLowerCase().includes("already exists")) ? (
+                <div className="js-fade-in flex flex-col gap-2 rounded-xl border border-warning/40 bg-warning/10 p-4 text-sm text-foreground">
+                  <div className="flex items-center gap-2 font-medium text-warning-foreground">
+                    <span>Account Already Registered</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    An account with <strong className="text-foreground">{email.trim().toLowerCase()}</strong> already exists. Please log in directly.
+                  </p>
+                  <div className="pt-1">
+                    <Link
+                      to="/login"
+                      search={{ email: email.trim().toLowerCase() }}
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+                    >
+                      Log in to your account &rarr;
+                    </Link>
+                  </div>
+                </div>
+              ) : (
+                <div className="js-fade-in rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-sm text-destructive">
+                  {mutation.error instanceof ApiError
+                    ? mutation.error.message
+                    : "Sign up failed. Please try again."}
+                </div>
+              )
             )}
 
             {/* Submit */}

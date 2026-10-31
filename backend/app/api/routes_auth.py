@@ -6,6 +6,7 @@ import uuid
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, select
 
@@ -54,24 +55,26 @@ def signup(body: SignUpRequest, session: Session = Depends(get_session)):
     The ``candidate_id`` in the response can be stored directly in the
     frontend's CandidateContext so the rest of the pipeline works immediately.
     """
+    clean_email = body.email.strip().lower()
+
     # Reject duplicate emails with a clean 409
-    existing = session.exec(select(User).where(User.email == body.email)).first()
+    existing = session.exec(select(User).where(func.lower(User.email) == clean_email)).first()
     if existing:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="An account with this email already exists.",
+            detail="An account with this email already exists. Please log in instead.",
         )
 
     # Create the linked Candidate row first
     candidate = Candidate(
-        name=body.full_name or body.email.split("@")[0],
+        name=body.full_name or clean_email.split("@")[0],
     )
     session.add(candidate)
     session.flush()  # get candidate.id without full commit
 
     # Create the User
     user = User(
-        email=body.email,
+        email=clean_email,
         hashed_password=hash_password(body.password),
         full_name=body.full_name,
         candidate_id=candidate.id,
@@ -85,7 +88,7 @@ def signup(body: SignUpRequest, session: Session = Depends(get_session)):
         session.rollback()
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="An account with this email already exists.",
+            detail="An account with this email already exists. Please log in instead.",
         )
 
     logger.info("New user signed up: %s (candidate_id=%s)", user.email, user.candidate_id)
@@ -106,7 +109,8 @@ def login(body: LoginRequest, session: Session = Depends(get_session)):
     The response also includes ``candidate_id`` so the frontend can resume
     where the user left off.
     """
-    user = session.exec(select(User).where(User.email == body.email)).first()
+    clean_email = body.email.strip().lower()
+    user = session.exec(select(User).where(func.lower(User.email) == clean_email)).first()
 
     # Use a generic message to prevent user-enumeration attacks
     invalid_exc = HTTPException(

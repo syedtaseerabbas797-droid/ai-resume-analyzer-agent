@@ -11,6 +11,11 @@ import { useAuth } from "@/context/AuthContext";
 import { ApiError, login } from "@/lib/api";
 
 export const Route = createFileRoute("/login")({
+  validateSearch: (search: Record<string, unknown>) => {
+    return {
+      email: typeof search.email === "string" ? search.email : undefined,
+    };
+  },
   head: () => ({
     meta: [
       { title: "Log In — JobScout AI" },
@@ -26,10 +31,18 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const { setAuth, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const search = Route.useSearch();
 
-  const [email, setEmail] = React.useState("");
+  const [email, setEmail] = React.useState(search.email || "");
   const [password, setPassword] = React.useState("");
   const [showPassword, setShowPassword] = React.useState(false);
+
+  // If search param changes or is passed later
+  React.useEffect(() => {
+    if (search.email && !email) {
+      setEmail(search.email);
+    }
+  }, [search.email]);
 
   // If already logged in, send to the app
   React.useEffect(() => {
@@ -37,7 +50,7 @@ function LoginPage() {
   }, [isAuthenticated, navigate]);
 
   const mutation = useMutation({
-    mutationFn: () => login({ email: email.trim(), password }),
+    mutationFn: () => login({ email: email.trim().toLowerCase(), password }),
     onSuccess: (data) => {
       setAuth(data.access_token, {
         id: data.user_id,
