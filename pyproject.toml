@@ -1,7 +1,0 @@
-[project]
-name = "jobscout-ai"
-version = "0.1.0"
-
-[tool.fastapi]
-entrypoint = "main:app"
-
